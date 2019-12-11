@@ -33,7 +33,7 @@ namespace SnakeGame
                     return (p != null);
                 }
                 );
-            //return _snake.Last();//какая то ошибка с индексами
+            //return _snake.Last();//какая то ошибка с индексами (index out of range) догадываюсь изза чего
         }
         public bool IsHit(Point head)
         {
