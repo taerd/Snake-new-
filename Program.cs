@@ -81,7 +81,7 @@ namespace SnakeGame
                     snake.Add = true;
                     snake.score += 1;
                 }
-                if(difficulty < 3 && snake.score >= 3+3*difficulty)
+                if(difficulty < 3 && snake.score >= 5+5*difficulty)
                 {
                     difficulty++;
                     time.Change(200 - difficulty * 40,200 - difficulty * 40);
