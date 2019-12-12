@@ -43,11 +43,15 @@ namespace SnakeGame
         }
         public bool IsHit(Point p)
         {
+            return (p.X == 0 || p.X == _x || p.Y == 0 || p.Y == _y);//проверим лишь контурные границы игрового поля. Для внутренних стен не годится
+            
+            /*//проверка по каждому элементу списка стен
             foreach (Point w in _wall)
             {
                 if (w.Equals(p)) return true;
             }
             return false;
+            */
         }
     }
 }

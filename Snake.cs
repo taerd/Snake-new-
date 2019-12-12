@@ -35,9 +35,17 @@ namespace SnakeGame
                 );
             //return _snake.Last();//какая то ошибка с индексами (index out of range) догадываюсь изза чего
         }
+        public bool Body(Point food)//для проверки если в теле змейки что то заспавнилось(еда)
+        {
+            foreach(Point body in _snake)
+            {
+                if (body.Equals(food))  return true; 
+            }
+            return false;
+        }
         public bool IsHit(Point head)
         {
-            for(int i = _snake.Count - 2; i > 0; i--)
+            for(int i = _snake.Count - 4; i > 0; i--)
             {
                 if (_snake[i].Equals(head)) return true;
             }

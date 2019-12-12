@@ -16,6 +16,8 @@ namespace SnakeGame
         static readonly int x = 40;
         static readonly int y = 14;
         static bool game;
+        static int difficulty;
+        static string [] lvl =  { "Slug  ","Worm  ","Cobra ","Python" };
         static ConsoleKeyInfo pressed;
         static void Main(string[] args)
         {
@@ -23,9 +25,11 @@ namespace SnakeGame
             Console.SetBufferSize(x + 40, y +2);
             Console.CursorVisible = false;
             wall = new Wall(x, y, '#');
-            food = new Food(x, y, '@');
-            food.CreateFood();
+
             snake = new Snake(x / 2, y / 2);
+
+            food = new Food(x, y, '@',snake);
+            food.CreateFood();
 
             Console.SetCursorPosition(x + 2, 1);
             Console.Write("To start - press something");
@@ -34,6 +38,11 @@ namespace SnakeGame
 
             pressed = Console.ReadKey();
             game = true;
+
+            difficulty = 0;
+
+            Console.SetCursorPosition(x + 2, 5);
+            Console.Write($"Lvl:{lvl[0]}");
 
             time = new Timer(Loop, null, 0, 200);
 
@@ -51,9 +60,9 @@ namespace SnakeGame
                 }
             }
             time.Change(0,Timeout.Infinite);
-            Console.SetCursorPosition(x+2, 5);
-            Console.Write("Game over");
             Console.SetCursorPosition(x+2, 7);
+            Console.Write("Game over");
+            Console.SetCursorPosition(x+2, 9);
             Console.Write($"Your score is : {snake.score}");
             Console.ReadKey();
         }
@@ -71,6 +80,13 @@ namespace SnakeGame
                     food.CreateFood();
                     snake.Add = true;
                     snake.score += 1;
+                }
+                if(difficulty < 3 && snake.score >= 3+3*difficulty)
+                {
+                    difficulty++;
+                    time.Change(200 - difficulty * 40,200 - difficulty * 40);
+                    Console.SetCursorPosition(x + 2, 5);
+                    Console.Write($"Lvl:{lvl[difficulty]}");
                 }
                 snake.Move();
             }
